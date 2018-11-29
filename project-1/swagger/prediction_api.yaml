@@ -1,0 +1,67 @@
+swagger: '2.0'
+info:
+  title: US Permanent Visa Application Prediction API
+  version: "0.1"
+  description: An API that can predict if US Permanent Visa can be approved
+
+paths:
+  /health:
+    get:
+      summary: Checks the health of the service
+      description: Returns the health status of the service
+      operationId: prediction_api.health
+      responses:
+        '200':
+          description: Service is healthy
+        '500':
+          description: Service is unhealthy
+
+  /predict:
+    post:
+      summary: Entrypoint to our prediction function
+      operationId: prediction_api.predict
+      consumes:
+      - multipart/form-data
+      produces:
+      - application/json
+      parameters:
+        - in: formData
+          name: class_of_admission
+          required: true
+          description: class_of_admission
+          type: number
+        - in: formData
+          name: country_of_citizenship
+          required: true
+          description: country_of_citizenship
+          type: number
+        - in: formData
+          name: employer_city
+          required: true
+          description: employer_city
+          type: number
+        - in: formData
+          name: employer_name
+          required: true
+          description: employer_name
+          type: number
+        - in: formData
+          name: employer_state
+          required: true
+          description: employer_state
+          type: number
+        - in: formData
+          name: pw_soc_code
+          required: true
+          description: pw_soc_code
+          type: number
+        - in: formData
+          name: pw_source_name_9089
+          required: true
+          description: pw_source_name_9089
+          type: number
+      responses:
+        '200':
+          description: Classification performed successfully
+        '500':
+          description: Unable to perform the classification
