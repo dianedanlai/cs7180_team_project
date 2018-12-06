@@ -22,6 +22,8 @@ To train this model, in your terminal:
 import pandas as pd
 from sklearn.externals import joblib
 from sklearn.preprocessing import LabelEncoder
+from sklearn.model_selection import train_test_split
+
 df = pd.read_csv('./us_perm_visas.csv', low_memory=False)
 df.head()
 #data preprocessing
@@ -130,7 +132,17 @@ for col in df.columns:
     categorical_variables[col] = cat_var_name
 X = df.loc[:, df.columns != 'case_status']
 y = df.case_status
+
+#Splitting preprocessed data into train and test data sets
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
+
 from sklearn.neighbors import KNeighborsClassifier
 neigh = KNeighborsClassifier(n_neighbors=3)
-knn = neigh.fit(X, y)
-joblib.dump(neigh, 'model/predictor.joblib')
+neigh.fit(X_train, y_train)
+
+from sklearn.linear_model import LogisticRegression
+logreg = LogisticRegression(random_state=0)
+logreg.fit(X_train, y_train)
+
+joblib.dump(neigh, 'model/predictor_knn.joblib')
+joblib.dump(logreg, 'model/predictor_logreg.joblib')

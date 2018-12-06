@@ -1,0 +1,7 @@
+project-1/us_perm_visas.csv
+.gitignore
+.idea/workspace.xml
+project-1/__pycache__/
+project-1/model/predictor.joblib
+project-1/model/predictor_knn.joblib
+project-1/model/predictor_logreg.joblib

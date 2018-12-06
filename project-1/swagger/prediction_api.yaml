@@ -60,6 +60,12 @@ paths:
           required: true
           description: pw_source_name_9089
           type: number
+        - in: formData
+          name: model
+          required: true
+          description: the classification model to use
+          type: string
+          enum: [ "K Nearest Neighbors", "Logistic Regression"]
       responses:
         '200':
           description: Classification performed successfully

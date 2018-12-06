@@ -10,7 +10,8 @@ app = connexion.FlaskApp(__name__, port=8080, specification_dir='swagger/')
 application = app.app
 
 # Load our pre-trained model
-clf = joblib.load('./model/predictor.joblib')
+clf_knn = joblib.load('./model/predictor_knn.joblib')
+clf_logreg = joblib.load('./model/predictor_logreg.joblib')
 
 # Implement a simple health check function (GET)
 def health():
@@ -23,9 +24,13 @@ def health():
     return {"Message": "Service is OK"}
 
 # Implement our predict function
-def predict(class_of_admission, country_of_citizenship, employer_city, employer_name, employer_state, pw_soc_code, pw_source_name_9089):
+def predict(class_of_admission, country_of_citizenship, employer_city, employer_name, employer_state, pw_soc_code, pw_source_name_9089, model):
     # Accept the feature values provided as part of our POST
     # Use these as input to clf.predict()
+    if model == "K Nearest Neighbors":
+        clf = clf_knn
+    else:
+        clf = clf_logreg
     prediction = clf.predict([[class_of_admission, country_of_citizenship, employer_city, employer_name, employer_state, pw_soc_code, pw_source_name_9089]])
 
     # Map the predicted value to an actual class
