@@ -1,1 +1,1 @@
-Please run prediction_api.py to generate predictor.joblib
+Please run train_model.py to generate predictor.joblib
