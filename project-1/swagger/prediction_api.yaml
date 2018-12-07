@@ -28,38 +28,38 @@ paths:
         - in: formData
           name: class_of_admission
           required: true
-          description: class_of_admission
-          type: number
+          description: e.g. H1-B. The visa category that was used to admit an immigrant to the U.S. as a permanent resident or conditional permanent resident
+          type: string
         - in: formData
           name: country_of_citizenship
           required: true
-          description: country_of_citizenship
-          type: number
+          description: the country of your current citizenship
+          type: string
         - in: formData
           name: employer_city
           required: true
-          description: employer_city
-          type: number
+          description: the city of your current employer
+          type: string
         - in: formData
           name: employer_name
           required: true
-          description: employer_name
-          type: number
+          description: the name of your current employer
+          type: string
         - in: formData
           name: employer_state
           required: true
-          description: employer_state
-          type: number
+          description: the state of your current employer
+          type: string
         - in: formData
           name: pw_soc_code
           required: true
-          description: pw_soc_code
-          type: number
+          description: in the format of XX-XXXX.XX
+          type: string
         - in: formData
           name: pw_source_name_9089
           required: true
-          description: pw_source_name_9089
-          type: number
+          description: e.g. OES
+          type: string
         - in: formData
           name: model
           required: true

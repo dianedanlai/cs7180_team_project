@@ -116,7 +116,7 @@ df['pw_soc_code'] = df['pw_soc_code'].astype(int)
 df['case_status'] = df['case_status'].astype(int)
 #Replacing missing values with mode
 df['class_of_admission']=df['class_of_admission'].fillna((df['class_of_admission'].mode()[0]))
-df['country_of_citizenship']=df['country_of_citizenship'].fillna((df['country_of_citizenship'].mode()[0]))
+df['country_of_citzenship']=df['country_of_citzenship'].fillna((df['country_of_citzenship'].mode()[0]))
 df['employer_city']=df['employer_city'].fillna((df['employer_city'].mode()[0]))
 df['employer_name']=df['employer_name'].fillna((df['employer_name'].mode()[0]))
 df['employer_name']=df['employer_name'].astype(str).str.upper()
