@@ -12,6 +12,7 @@ application = app.app
 # Load our pre-trained model
 clf_knn = joblib.load('./model/predictor_knn.joblib')
 clf_logreg = joblib.load('./model/predictor_logreg.joblib')
+clg_rf = joblib.load('./model/predictor_logreg.joblib')
 
 # Implement a simple health check function (GET)
 def health():
@@ -41,6 +42,17 @@ def predict(class_of_admission, country_of_citizenship, employer_city, employer_
 
     # Return the prediction as a json
     return {"prediction" : predicted_class}
+
+def getSimilarCertified(class_of_admission, country_of_citizenship, employer_city, employer_name, employer_state, pw_soc_code, pw_source_name_9089, model):
+    if model == "K Nearest Neighbors":
+        clf = clf_knn
+    elif model == "Logistic Regression":
+        clf = clf_logreg
+    else:
+        cls = clg_rf
+
+    return clf.getSimilarCertified([[class_of_admission, country_of_citizenship, employer_city, employer_name, employer_state, pw_soc_code, pw_source_name_9089]])
+
 
 # Read the API definition for our service from the yaml file
 app.add_api("prediction_api.yaml")

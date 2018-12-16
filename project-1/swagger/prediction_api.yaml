@@ -65,9 +65,65 @@ paths:
           required: true
           description: the classification model to use
           type: string
-          enum: [ "K Nearest Neighbors", "Logistic Regression"]
+          enum: [ "K Nearest Neighbors", "Logistic Regression", "Random Forest"]
       responses:
         '200':
           description: Classification performed successfully
         '500':
           description: Unable to perform the classification
+
+  /getSimilarCertified:
+    post:
+      summary: Entrypoint to our getSimilarCertified function
+      operationId: prediction_api.getSimilarCertified
+      consumes:
+      - multipart/form-data
+      produces:
+      - application/json
+      parameters:
+        - in: formData
+          name: class_of_admission
+          required: true
+          description: e.g. H1-B. The visa category that was used to admit an immigrant to the U.S. as a permanent resident or conditional permanent resident
+          type: string
+        - in: formData
+          name: country_of_citizenship
+          required: true
+          description: the country of your current citizenship
+          type: string
+        - in: formData
+          name: employer_city
+          required: true
+          description: the city of your current employer
+          type: string
+        - in: formData
+          name: employer_name
+          required: true
+          description: the name of your current employer
+          type: string
+        - in: formData
+          name: employer_state
+          required: true
+          description: the state of your current employer
+          type: string
+        - in: formData
+          name: pw_soc_code
+          required: true
+          description: in the format of XX-XXXX.XX
+          type: string
+        - in: formData
+          name: pw_source_name_9089
+          required: true
+          description: e.g. OES
+          type: string
+        - in: formData
+          name: model
+          required: true
+          description: the classification model to use
+          type: string
+          enum: [ "K Nearest Neighbors", "Logistic Regression", "Random Forest"]
+      responses:
+        '200':
+          description: get most similar certified records successfully
+        '500':
+          description: Unable to get most similar certified records successfully

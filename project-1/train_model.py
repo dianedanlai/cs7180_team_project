@@ -36,7 +36,7 @@ chosen_attrs = [0,1,2,5,6,8,12,14]
 df = df.iloc[:,chosen_attrs]
 df.loc[df.case_status == 'Certified', 'case_status'] = 1
 df.loc[df.case_status == 'Denied', 'case_status'] = 0
-df['employer_state'] = df['employer_state'].fillna(df['employer_state'].mode()[0]);
+df['employer_state'] = df['employer_state'].fillna(df['employer_state'].mode()[0])
 #Mapping from state name to abbreviation
 state_abbrevs = {
     'Alabama': 'AL',
@@ -116,7 +116,7 @@ df['pw_soc_code'] = df['pw_soc_code'].astype(int)
 df['case_status'] = df['case_status'].astype(int)
 #Replacing missing values with mode
 df['class_of_admission']=df['class_of_admission'].fillna((df['class_of_admission'].mode()[0]))
-df['country_of_citzenship']=df['country_of_citzenship'].fillna((df['country_of_citzenship'].mode()[0]))
+df['country_of_citizenship']=df['country_of_citizenship'].fillna((df['country_of_citizenship'].mode()[0]))
 df['employer_city']=df['employer_city'].fillna((df['employer_city'].mode()[0]))
 df['employer_name']=df['employer_name'].fillna((df['employer_name'].mode()[0]))
 df['employer_name']=df['employer_name'].astype(str).str.upper()
@@ -139,10 +139,24 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_
 from sklearn.neighbors import KNeighborsClassifier
 neigh = KNeighborsClassifier(n_neighbors=3)
 neigh.fit(X_train, y_train)
+print(neigh.score(X_test, y_test))
+
+neigh = KNeighborsClassifier(n_neighbors=4)
+neigh.fit(X_train, y_train)
+print(neigh.score(X_test, y_test))
+
+neigh = KNeighborsClassifier(n_neighbors=5)
+neigh.fit(X_train, y_train)
+print(neigh.score(X_test, y_test))
 
 from sklearn.linear_model import LogisticRegression
-logreg = LogisticRegression(random_state=0)
+logreg = LogisticRegression(random_state=0,solver='lbfgs')
 logreg.fit(X_train, y_train)
+print(logreg.score(X_test, y_test))
+
+logreg = LogisticRegression(random_state=0,solver='liblinear')
+logreg.fit(X_train, y_train)
+print(logreg.score(X_test, y_test))
 
 joblib.dump(neigh, 'model/predictor_knn.joblib')
 joblib.dump(logreg, 'model/predictor_logreg.joblib')
