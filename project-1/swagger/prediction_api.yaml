@@ -29,43 +29,43 @@ paths:
           name: class_of_admission
           required: true
           description: e.g. H1-B. The visa category that was used to admit an immigrant to the U.S. as a permanent resident or conditional permanent resident
-          type: string
+          type: integer
         - in: formData
           name: country_of_citizenship
           required: true
           description: the country of your current citizenship
-          type: string
+          type: integer
         - in: formData
           name: employer_city
           required: true
           description: the city of your current employer
-          type: string
+          type: integer
         - in: formData
           name: employer_name
           required: true
           description: the name of your current employer
-          type: string
+          type: integer
         - in: formData
           name: employer_state
           required: true
           description: the state of your current employer
-          type: string
+          type: integer
         - in: formData
           name: pw_soc_code
           required: true
           description: in the format of XX-XXXX.XX
-          type: string
+          type: integer
         - in: formData
           name: pw_source_name_9089
           required: true
           description: e.g. OES
-          type: string
+          type: integer
         - in: formData
           name: model
           required: true
           description: the classification model to use
           type: string
-          enum: [ "K Nearest Neighbors", "Logistic Regression", "Random Forest"]
+          enum: [ "Logistic Regression", "K Nearest Neighbors", "Random Forest"]
       responses:
         '200':
           description: Classification performed successfully
@@ -85,43 +85,37 @@ paths:
           name: class_of_admission
           required: true
           description: e.g. H1-B. The visa category that was used to admit an immigrant to the U.S. as a permanent resident or conditional permanent resident
-          type: string
+          type: integer
         - in: formData
           name: country_of_citizenship
           required: true
           description: the country of your current citizenship
-          type: string
+          type: integer
         - in: formData
           name: employer_city
           required: true
           description: the city of your current employer
-          type: string
+          type: integer
         - in: formData
           name: employer_name
           required: true
           description: the name of your current employer
-          type: string
+          type: integer
         - in: formData
           name: employer_state
           required: true
           description: the state of your current employer
-          type: string
+          type: integer
         - in: formData
           name: pw_soc_code
           required: true
           description: in the format of XX-XXXX.XX
-          type: string
+          type: integer
         - in: formData
           name: pw_source_name_9089
           required: true
           description: e.g. OES
-          type: string
-        - in: formData
-          name: model
-          required: true
-          description: the classification model to use
-          type: string
-          enum: [ "K Nearest Neighbors", "Logistic Regression", "Random Forest"]
+          type: integer
       responses:
         '200':
           description: get most similar certified records successfully

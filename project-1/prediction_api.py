@@ -4,6 +4,8 @@ To run this app, in your terminal:
 """
 import connexion
 from sklearn.externals import joblib
+import numpy as np
+import sys
 
 # Instantiate our Flask app object
 app = connexion.FlaskApp(__name__, port=8080, specification_dir='swagger/')
@@ -13,6 +15,7 @@ application = app.app
 clf_knn = joblib.load('models/knn.joblib')
 clf_logreg = joblib.load('models/logistic_regression.joblib')
 clf_rf = joblib.load('models/random_forest.joblib')
+nbrs = joblib.load('models/nn10.joblib')
 
 # Implement a simple health check function (GET)
 def health():
@@ -26,35 +29,28 @@ def health():
 
 # Implement our predict function
 def predict(class_of_admission, country_of_citizenship, employer_city, employer_name, employer_state, pw_soc_code, pw_source_name_9089, model):
-    # Accept the feature values provided as part of our POST
-    # Use these as input to clf.predict()
+    # KNN returns a boolean result
+    # Logistic Regression and Random Forest returns a probability of P("certified")
     if model == "K Nearest Neighbors":
+
         clf = clf_knn
+        label = clf.predict([[class_of_admission, country_of_citizenship, employer_city, employer_name, employer_state, pw_soc_code, pw_source_name_9089]])
+        return {"prediction" : "certified" if label[0] == 1 else "denied"}
     elif model == "Logistic Regression":
         clf = clf_logreg
     else:
         clf = clf_rf
-    label = clf.predict([[class_of_admission, country_of_citizenship, employer_city, employer_name, employer_state, pw_soc_code, pw_source_name_9089]])
+
     prob = clf.predict_proba([[class_of_admission, country_of_citizenship, employer_city, employer_name, employer_state, pw_soc_code, pw_source_name_9089]])
+    return {"prediction" : prob[0][1]}
 
-    # Map the predicted value to an actual class
-    if label[0] == 0:
-        prob = 1 - prob
-
-    # Return the prediction as a json
-    return {"prediction" : "probability of being certified is " + prob}
-
-def get_similar_certified(class_of_admission, country_of_citizenship, employer_city, employer_name, employer_state, pw_soc_code, pw_source_name_9089, model):
-    if model == "K Nearest Neighbors":
-        clf = clf_knn
-    elif model == "Logistic Regression":
-        clf = clf_logreg
-    else:
-        clf = clf_rf
-
-    results = ""
-
-    return
+def get_similar_certified(class_of_admission, country_of_citizenship, employer_city, employer_name, employer_state, pw_soc_code, pw_source_name_9089):
+    # EXAMPLE OF HOW TO USE THIS MODEL.
+    px = np.load("models/px.npy")
+    distances, indices = nbrs.kneighbors(np.asarray([class_of_admission, country_of_citizenship, employer_city, employer_name, employer_state, pw_soc_code, pw_source_name_9089]).reshape(1, -1))
+    selected = px[indices, :]
+    print(selected, file=sys.stderr)
+    return {"top 10 similar records": selected.tolist()}
 
 
 # Read the API definition for our service from the yaml file
