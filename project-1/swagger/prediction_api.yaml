@@ -72,10 +72,10 @@ paths:
         '500':
           description: Unable to perform the classification
 
-  /getSimilarCertified:
+  /get_similar_certified:
     post:
-      summary: Entrypoint to our getSimilarCertified function
-      operationId: prediction_api.getSimilarCertified
+      summary: Entrypoint to our get_similar_certified function
+      operationId: prediction_api.get_similar_certified
       consumes:
       - multipart/form-data
       produces:
