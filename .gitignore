@@ -10,3 +10,6 @@ project-1/ori_exp/us_perm_visas_process.csv
 project-1/ori_exp/us_perm_visas_to_classification.csv
 project-1/ori_exp/.ipynb_checkpoints/
 project-1/F.Model.ipynb
+project-1/.ipynb_checkpoints/
+project-1/ori_exp/logistic_regression.joblib
+project-1/ori_exp/random_forest.joblib
